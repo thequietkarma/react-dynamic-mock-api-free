@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dynamic-mock-api-free.vercel.app/sitemap.xml
