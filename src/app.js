@@ -9,6 +9,7 @@ import dashboardRoutes from "./routes/dashboard.route.js"
 import { rateLimit } from "express-rate-limit"
 import swaggerUi from "swagger-ui-express"
 import openapiSpec from "./docs/openapi.js"
+import { fileURLToPath } from "url"
 import { configDotenv } from "dotenv"
 configDotenv()
 
@@ -31,9 +32,12 @@ const limiter = rateLimit({
 // Apply the rate limiting middleware to all requests.
 app.use(limiter)
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 app.set("view engine", "ejs")
-app.set("views", "./src/views")
-app.use(express.static("src/public"))
+app.set("views", path.join(__dirname, "views"))
+app.use(express.static("public"))
 
 // Frontend Rendring
 app.get("/",(req,res)=>{
