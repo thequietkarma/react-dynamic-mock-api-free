@@ -1,8 +1,10 @@
 # React Dynamic Mock API (Free) 🚀
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2014.x-brightgreen.svg)](https://nodejs.org/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/thequietkarma/react-dynamic-mock-api-free/graphs/commit-activity)
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  <img src="https://img.shields.io/badge/node-%3E%3D%2014.x-brightgreen.svg" alt="Node.js Version">
+  <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintenance Status">
+</p>
 
 A **free dynamic mock API generator** that allows developers to instantly create REST endpoints and store JSON data without building a backend. Perfect for frontend developers, testers, and rapid prototyping.
 
@@ -36,15 +38,15 @@ When building frontend applications, developers often face "the waiting game" fo
 * **Tag-Based Collections:** Organize your data efficiently.
 * **Developer Dashboard:** Manage and monitor your APIs visually.
 * **Robust Security:** Includes Rate Limiting.
-* **Documentation:** Built-in Swagger/Docs page and API tester. Visit /open-source/docs.
+* **Documentation:** Built-in Swagger/Docs page and API tester. Visit `/open-source/docs`.
 * **Modular Code:** Clean Controller-Service-Repository architecture.
 
 ---
 
 ## 🧠 How It Works
-1.  **Create a Project:** Define a `rootRoute` (e.g., your project name).
-2.  **Define Collections:** Use **tags** to separate data (e.g., `users`, `products`).
-3.  **Interact:** Push JSON data via POST and retrieve it via GET.
+1. **Create a Project:** Define a `rootRoute` (e.g., your project name).
+2. **Define Collections:** Use **tags** to separate data (e.g., `users`, `products`).
+3. **Interact:** Push JSON data via POST and retrieve it via GET.
 
 **Endpoint Structure:**
 `GET /user-api/{projectName}/{tag}`
@@ -52,6 +54,7 @@ When building frontend applications, developers often face "the waiting game" fo
 ---
 
 ## 🛠 Tech Stack
+
 | Layer | Technology |
 | :--- | :--- |
 | **Backend** | Node.js, Express.js |
@@ -64,6 +67,7 @@ When building frontend applications, developers often face "the waiting game" fo
 
 ## 🏗 Architecture
 The project follows clean design principles to ensure scalability:
+
 ```text
 src
  ├── controllers    # Request handling & responses
@@ -73,30 +77,34 @@ src
  ├── middlewares    # Auth, Error handling, Rate limiting
  ├── routes         # API route definitions
  ├── utils          # Helpers & Async wrappers
- └── config         # Environment variables 
-```
-##⚡Getting Started (Local Development)
+ └── config         # Environment variables
+ ``` 
+## ⚡ Getting Started (Local Development)
 1. Clone the repository
-Bash:
+```Bash
 git clone [https://github.com/thequietkarma/react-dynamic-mock-api-free](https://github.com/thequietkarma/react-dynamic-mock-api-free)
 cd react-dynamic-mock-api-free
+```
 2. Install dependencies
-Bash:
+```Bash
 npm install
+```
 3. Setup Environment Variables
 Create a .env file in the root directory:
 
-Code snippet
+```Code snippet
 PORT=3000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_key
+```
 4. Run the server
-Bash
+```Bash
 # Development mode
 npm run dev
 
 # Production mode
 npm start
+```
 The server will start on http://localhost:3000.
 
 📦 Usage Examples
@@ -110,6 +118,7 @@ JSON
 }
 Fetch Data (GET)
 GET /user-api/myproject/users
+
 Response:
 
 JSON
@@ -124,8 +133,8 @@ JSON
   ]
 }
 Update/Delete
-Update: PATCH /user-api/myproject/{docId}
 
+Update: PATCH /user-api/myproject/{docId}
 Delete: DELETE /user-api/myproject/{docId}
 
 💡 Future Improvements
@@ -154,7 +163,6 @@ Open a Pull Request.
 
 🧑‍💻 Author
 Shyam Sundar
-
 Student developer passionate about backend systems and developer tools.
 
 GitHub: @thequietkarma
