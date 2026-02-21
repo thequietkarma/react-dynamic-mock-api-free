@@ -74,8 +74,8 @@ src
  ├── routes         # API route definitions
  ├── utils          # Helpers & Async wrappers
  └── config         # Environment variables 
- 
-⚡Getting Started (Local Development)
+```
+##⚡Getting Started (Local Development)
 1. Clone the repository
 Bash:
 git clone [https://github.com/thequietkarma/react-dynamic-mock-api-free](https://github.com/thequietkarma/react-dynamic-mock-api-free)
