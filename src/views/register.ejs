@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account • ReactMockAPI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        borderGlass: 'rgba(255, 255, 255, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 100% 0%, #1e1b4b 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, #312e81 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #030712 0%, transparent 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .input-glass:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-slideIn {
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+    <div class="mesh-gradient"></div>
+
+    <nav class="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-2xl px-6 py-3 borderGlass">
+            <a href="/" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-bolt text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    ReactMock
+                </span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/#features" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Features</a>
+                <a href="/docs" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Docs</a>
+                <a href="/login" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Login</a>
+                <a href="/register" class="bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition-all active:scale-95">
+                    Sign Up
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden text-gray-300 focus:outline-none">
+                <i class="fas fa-bars-staggered text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-[#030712]/95 backdrop-blur-xl z-[150] flex flex-col items-center justify-center space-y-8 md:hidden">
+        <button id="close-btn" class="absolute top-8 right-8 text-gray-400 text-3xl">&times;</button>
+        <a href="/" class="text-2xl font-bold">Home</a>
+        <a href="/#features" class="text-2xl font-bold">Features</a>
+        <a href="/login" class="text-2xl font-bold">Login</a>
+        <a href="/register" class="bg-indigo-600 text-white px-8 py-4 rounded-2xl text-xl font-bold">Get Started</a>
+    </div>
+
+    <main class="flex-grow flex items-center justify-center p-6 pt-32">
+        <div class="glass-card w-full max-w-md p-10 rounded-[2.5rem] animate-slideIn">
+            
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    Get Started
+                </h1>
+                <p class="text-gray-400 mt-2">Create your free developer account</p>
+            </div>
+
+            <div id="errorBox" class="hidden mb-6 p-4 bg-red-500/10 border border-red-500/50 text-red-400 rounded-2xl text-sm flex items-center space-x-3">
+                <i class="fas fa-circle-exclamation"></i>
+                <span id="errorMsg"></span>
+            </div>
+
+            <form id="registerForm" class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Email Address</label>
+                    <div class="relative">
+                        <i class="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="email" name="email" placeholder="dev@example.com" required
+                            class="input-glass w-full rounded-2xl pl-11 pr-4 py-3.5 text-white placeholder-gray-600 focus:outline-none" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Password</label>
+                    <div class="relative">
+                        <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="password" name="password" placeholder="Min. 6 characters" required
+                            class="input-glass w-full rounded-2xl pl-11 pr-4 py-3.5 text-white placeholder-gray-600 focus:outline-none" />
+                    </div>
+                </div>
+
+                <button id="submitBtn"
+                    class="group w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-500 shadow-xl shadow-indigo-500/20 transition-all active:scale-[0.98] flex items-center justify-center space-x-2">
+                    <span>Create Account</span>
+                    <i class="fas fa-rocket text-xs group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </form>
+
+            <div class="mt-10 pt-8 border-t border-white/5 text-center">
+                <p class="text-sm text-gray-500">
+                    Already have an account? 
+                    <a href="/login" class="text-white font-semibold hover:text-indigo-400 transition-colors ml-1">
+                        Login here
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Navbar Mobile Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const toggleMenu = () => mobileMenu.classList.toggle('open');
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+
+        // Auth Logic
+        if (localStorage.getItem("token")) {
+            window.location.href = "/dashboard";
+        }
+
+        const form = document.getElementById("registerForm");
+        const errorBox = document.getElementById("errorBox");
+        const errorMsg = document.getElementById("errorMsg");
+        const submitBtn = document.getElementById("submitBtn");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            // Visual feedback
+            submitBtn.innerHTML = `<i class="fas fa-circle-notch animate-spin mr-2"></i> Initializing...`;
+            submitBtn.disabled = true;
+            errorBox.classList.add("hidden");
+
+            const email = form.email.value;
+            const password = form.password.value;
+
+            try {
+                const res = await fetch("/user/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem("token", data.data.token);
+                    localStorage.setItem("refreshToken", data.data.refreshToken);
+                    
+                    submitBtn.classList.replace("bg-indigo-600", "bg-green-600");
+                    submitBtn.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Account Created!`;
+                    
+                    setTimeout(() => window.location.href = "/dashboard", 800);
+                } else {
+                    errorBox.classList.remove("hidden");
+                    errorMsg.innerText = data.error || "Something went wrong";
+                }
+            } catch (err) {
+                errorBox.classList.remove("hidden");
+                errorMsg.innerText = "Server unreachable. Try again later.";
+            } finally {
+                if (!localStorage.getItem("token")) {
+                    submitBtn.innerHTML = `<span>Create Account</span><i class="fas fa-rocket text-xs ml-2"></i>`;
+                    submitBtn.disabled = false;
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReactMockAPI Docs</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background: #030712;
+            color: #f3f4f6;
+            font-family: Inter;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 0% 0%, #1e1b4b 0%, transparent 35%),
+                radial-gradient(circle at 100% 100%, #312e81 0%, transparent 35%);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, .03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .code {
+            background: #0b0e14;
+            border: 1px solid rgba(255, 255, 255, .05);
+            font-family: "Fira Code";
+        }
+
+        .method {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .get {
+            background: #052e2b;
+            color: #34d399
+        }
+
+        .post {
+            background: #082f49;
+            color: #60a5fa
+        }
+
+        .patch {
+            background: #3f2b05;
+            color: #fbbf24
+        }
+
+        .delete {
+            background: #3f0505;
+            color: #f87171
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <div class="mesh-gradient"></div>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-xl px-6 py-3">
+
+            <div class="flex items-center space-x-2">
+
+                <div class="w-8 h-8 bg-indigo-600 rounded flex items-center justify-center">
+                    <i class="fas fa-book text-white text-xs"></i>
+                </div>
+
+                <span class="font-bold text-white">ReactMockAPI Docs</span>
+
+            </div>
+
+            <div class="flex space-x-6 text-sm">
+
+                <a href="/" class="text-gray-400 hover:text-white">Home</a>
+                <a href="/dashboard" class="text-gray-400 hover:text-white">Dashboard</a>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <div class="max-w-7xl mx-auto pt-28 pb-20 px-6 grid grid-cols-12 gap-12">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="col-span-3 hidden lg:block">
+
+            <div class="sticky top-28 space-y-6 text-sm">
+
+                <p class="uppercase text-gray-500 text-xs font-bold tracking-widest">Introduction</p>
+
+                <a href="#base" class="block text-gray-400 hover:text-indigo-400">Base URL</a>
+
+                <p class="uppercase text-gray-500 text-xs font-bold tracking-widest mt-8">Endpoints</p>
+
+                <a href="#fetch" class="block text-gray-400 hover:text-indigo-400">Fetch Data</a>
+
+                <a href="#create" class="block text-gray-400 hover:text-indigo-400">Create Record</a>
+
+                <a href="#update" class="block text-gray-400 hover:text-indigo-400">Update Record</a>
+
+                <a href="#delete" class="block text-gray-400 hover:text-indigo-400">Delete Record</a>
+
+                <a href="#deleteMany" class="block text-gray-400 hover:text-indigo-400">Delete Collection</a>
+
+                <a href="#tester" class="block text-indigo-400 mt-10">API Tester</a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="col-span-12 lg:col-span-9 space-y-20">
+
+
+            <!-- INTRO -->
+
+            <section>
+
+                <h1 class="text-4xl font-extrabold mb-4">API Documentation</h1>
+
+                <p class="text-gray-400 max-w-2xl">
+
+                    ReactMockAPI lets developers generate REST APIs instantly without building a backend.
+                    Create projects, insert JSON data and instantly access it through API endpoints.
+
+                </p>
+
+            </section>
+
+
+            <!-- BASE URL -->
+
+            <section id="base">
+
+                <h2 class="text-xl font-bold mb-4">Base URL</h2>
+
+                <div class="code p-4 rounded-lg flex justify-between">
+
+                    <code id="baseURL"></code>
+
+                    <button onclick="copy('baseURL')" class="text-gray-500 hover:text-white">
+
+                        <i class="far fa-copy"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- FETCH -->
+
+            <section id="fetch">
+
+                <span class="method get">GET</span>
+
+                <h3 class="text-xl font-bold mt-2">Fetch Documents</h3>
+
+                <p class="text-gray-400 text-sm mt-2">
+
+                    Retrieve all documents stored inside a collection.
+
+                </p>
+
+                <div class="code mt-4 p-4 rounded-lg">
+
+                    GET /user-api/:rootRoute/:tag
+
+                </div>
+
+            </section>
+            <section id="fetch-2">
+
+                <span class="method get">GET</span>
+
+                <h3 class="text-xl font-bold mt-2">Fetch Documents</h3>
+
+                <p class="text-gray-400 text-sm mt-2">
+
+                    Retrieve all documents.
+
+                </p>
+
+                <div class="code mt-4 p-4 rounded-lg">
+
+                    GET /user-api/:rootRoute/
+
+                </div>
+
+            </section>
+
+
+            <!-- CREATE -->
+
+            <section id="create">
+
+                <span class="method post">POST</span>
+
+                <h3 class="text-xl font-bold mt-2">Create Record</h3>
+
+                <p class="text-gray-400 text-sm mt-2">
+
+                    Insert a new JSON object into a collection.
+
+                </p>
+
+                <div class="code mt-4 p-4 rounded-lg">
+
+                    POST /user-api/:rootRoute/:tag/create
+
+                </div>
+
+                <pre class="code mt-4 p-4 rounded-lg text-sm">
+
+{
+"name":"Sony Headphones",
+"price":299
+}
+
+</pre>
+
+            </section>
+
+
+            <!-- UPDATE -->
+
+            <section id="update">
+
+                <span class="method patch">PATCH</span>
+
+                <h3 class="text-xl font-bold mt-2">Update Record</h3>
+
+                <p class="text-gray-400 text-sm mt-2">
+
+                    Update a document using its ID.
+
+                </p>
+
+                <div class="code mt-4 p-4 rounded-lg">
+
+                    PATCH /user-api/:rootRoute/:docId/update
+
+                </div>
+
+            </section>
+
+
+            <!-- DELETE -->
+
+            <section id="delete">
+
+                <span class="method delete">DELETE</span>
+
+                <h3 class="text-xl font-bold mt-2">Delete Record</h3>
+
+                <p class="text-gray-400 text-sm mt-2">
+
+                    Delete a single document.
+
+                </p>
+
+                <div class="code mt-4 p-4 rounded-lg">
+
+                    DELETE /user-api/:rootRoute/:docId/delete
+
+                </div>
+
+            </section>
+
+
+            <!-- DELETE MANY -->
+
+            <section id="deleteMany">
+
+                <span class="method delete">DELETE</span>
+
+                <h3 class="text-xl font-bold mt-2">Delete Collection Data</h3>
+
+                <p class="text-gray-400 text-sm mt-2">
+
+                    Delete all records inside a tag.
+
+                </p>
+
+                <div class="code mt-4 p-4 rounded-lg">
+
+                    DELETE /user-api/:rootRoute/:tag/delete-many
+
+                </div>
+
+            </section>
+
+
+            <!-- API TESTER -->
+
+            <section id="tester">
+
+                <div class="glass rounded-2xl p-6">
+
+                    <h2 class="font-bold mb-6">API Tester</h2>
+
+                    <div class="flex gap-3 mb-4">
+
+                        <select id="method" class="bg-black/40 border border-white/10 rounded px-3 py-2 text-sm">
+
+                            <option>GET</option>
+                            <option>POST</option>
+                            <option>PATCH</option>
+                            <option>DELETE</option>
+
+                        </select>
+
+                        <input id="endpoint" placeholder="/myapi/products"
+                            class="flex-1 bg-black/40 border border-white/10 rounded px-4 py-2 text-sm">
+
+                        <button onclick="sendRequest()" class="bg-indigo-600 px-6 py-2 rounded text-sm font-bold">
+
+                            Send
+
+                        </button>
+
+                    </div>
+
+
+                    <textarea id="body" placeholder='{"name":"product"}'
+                        class="w-full bg-black/40 border border-white/10 rounded p-4 text-xs font-mono h-32 mb-4"></textarea>
+
+
+                    <pre id="response"
+                        class="bg-black/60 border border-white/10 rounded p-4 text-xs font-mono h-40 overflow-auto text-indigo-300">
+
+Ready...
+
+</pre>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <footer class="text-center text-gray-600 text-xs py-10 border-t border-white/5">
+
+        © 2026 ReactMockAPI
+
+    </footer>
+
+
+    <script>
+
+        const base = window.location.origin
+
+        document.getElementById("baseURL").innerText = base + "/user-api"
+
+
+        async function sendRequest() {
+
+            const method = document.getElementById("method").value
+            const endpoint = document.getElementById("endpoint").value
+            const body = document.getElementById("body").value
+
+            const response = document.getElementById("response")
+
+            response.innerText = "Loading..."
+
+            try {
+
+                const options = { method }
+
+                if (method !== "GET" && body) {
+
+                    options.headers = { "Content-Type": "application/json" }
+                    options.body = body
+
+                }
+
+                const res = await fetch(base + "/user-api" + endpoint, options)
+
+                const data = await res.json()
+
+                response.innerText = JSON.stringify(data, null, 2)
+
+            } catch (err) {
+
+                response.innerText = "Request Failed"
+
+            }
+
+        }
+
+
+        function copy(id) {
+
+            const text = document.getElementById(id).innerText
+
+            navigator.clipboard.writeText(text)
+
+            alert("Copied")
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

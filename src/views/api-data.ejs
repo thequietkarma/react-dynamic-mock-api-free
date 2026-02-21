@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Data • ReactMockAPI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 0% 0%, #1e1b4b 0%, transparent 35%), radial-gradient(circle at 100% 100%, #312e81 0%, transparent 35%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tag-pill {
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tag-pill.active {
+            background: #6366f1;
+            color: white;
+            border-color: #818cf8;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        #modalOverlay {
+            backdrop-filter: blur(8px);
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        #modalContent {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        pre::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        pre::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen pb-20">
+    <div class="mesh-gradient"></div>
+
+    <nav class="sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-2xl px-6 py-3">
+            <div class="flex items-center space-x-4">
+                <a href="/dashboard"
+                    class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 border border-white/10">
+                    <i class="fas fa-chevron-left text-sm"></i>
+                </a>
+                <h1 id="projectTitle" class="text-lg font-bold text-white tracking-tight">/Loading...</h1>
+            </div>
+            <button onclick="openCreateModal()"
+                class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-lg shadow-indigo-500/20">
+                <i class="fas fa-plus mr-2"></i> Add Record
+            </button>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto mt-8 px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <div class="lg:col-span-3 space-y-4">
+                <div class="glass-card p-5 rounded-[2rem]">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Collections</p>
+                    <div id="tags" class="flex flex-wrap lg:flex-col gap-2"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-9">
+                <div id="docs" class="space-y-4"></div>
+
+                <div id="emptyState"
+                    class="hidden text-center py-20 glass-card rounded-[2.5rem] border-dashed border-2 border-white/5">
+                    <i class="fas fa-folder-open text-4xl text-gray-700 mb-4"></i>
+                    <p class="text-gray-500">No data found in this collection.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalOverlay">
+        <div id="modalContent" class="glass-card w-full max-w-xl rounded-[2.5rem] p-8 relative animate-in">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white"><i
+                    class="fas fa-times"></i></button>
+            <h2 class="text-xl font-bold mb-6">Create New Record</h2>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">Tag (Collection Name)</label>
+                    <input id="newTag" type="text" placeholder="e.g. users"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm mt-1 focus:border-indigo-500 outline-none transition-all">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">JSON Data</label>
+                    <textarea id="newJson" rows="8" placeholder='{ "name": "John Doe", "email": "john@example.com" }'
+                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm font-mono mt-1 focus:border-indigo-500 outline-none transition-all"></textarea>
+                </div>
+                <button onclick="submitNewRecord()" id="submitBtn"
+                    class="w-full bg-indigo-600 py-4 rounded-xl font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/20">
+                    Push to Database
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            window.location.href = "/login";
+        }
+
+        const rootRoute = window.location.pathname.split("/")[2];
+
+        let allDocs = [];
+        let activeTag = "all";
+
+        document.getElementById("projectTitle").innerText = "/" + rootRoute;
+
+
+
+        /* -----------------------------
+           GLOBAL LOADING STATE
+        ------------------------------ */
+
+        function showLoader() {
+            document.body.style.cursor = "progress";
+        }
+
+        function hideLoader() {
+            document.body.style.cursor = "default";
+        }
+
+
+
+        /* -----------------------------
+           LOAD DATA
+        ------------------------------ */
+
+        async function loadData() {
+
+            try {
+
+                showLoader();
+
+                const res = await fetch(`/dashboard/${rootRoute}`, {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                });
+
+                const result = await res.json();
+
+                if (!res.ok) {
+                    alert(result.error || "Failed to fetch data");
+                    return;
+                }
+
+                allDocs = result.data.docs;
+
+                renderTags(result.data.tags);
+                renderDocs();
+
+            } catch (err) {
+
+                console.error(err);
+                alert("Server error while loading data.");
+
+            } finally {
+                hideLoader();
+            }
+        }
+
+
+
+        /* -----------------------------
+           RENDER TAGS
+        ------------------------------ */
+
+        function renderTags(tags) {
+
+            const container = document.getElementById("tags");
+            container.innerHTML = "";
+
+            const allBtn = document.createElement("button");
+
+            allBtn.className = `tag-pill text-[11px] font-bold px-4 py-2 rounded-xl text-left ${activeTag === "all"
+                    ? "active"
+                    : "bg-white/5 text-gray-400 hover:text-white"
+                }`;
+
+            allBtn.innerText = "All Data";
+
+            allBtn.onclick = () => filterByTag("all");
+
+            container.appendChild(allBtn);
+
+            tags.forEach(tag => {
+
+                const btn = document.createElement("button");
+
+                btn.className = `tag-pill text-[11px] font-bold px-4 py-2 rounded-xl text-left ${activeTag === tag
+                        ? "active"
+                        : "bg-white/5 text-gray-400 hover:text-white"
+                    }`;
+
+                btn.innerText = tag;
+
+                btn.onclick = () => filterByTag(tag);
+
+                container.appendChild(btn);
+
+            });
+
+        }
+
+
+
+        /* -----------------------------
+           FILTER TAG
+        ------------------------------ */
+
+        function filterByTag(tag) {
+
+            activeTag = tag;
+
+            renderDocs();
+
+            const tags = [...new Set(allDocs.map(d => d.tag))];
+
+            renderTags(tags);
+
+        }
+
+
+
+        /* -----------------------------
+           RENDER DOCUMENTS
+        ------------------------------ */
+
+        function renderDocs() {
+
+            const container = document.getElementById("docs");
+            const empty = document.getElementById("emptyState");
+
+            container.innerHTML = "";
+
+            const filtered = activeTag === "all"
+                ? allDocs
+                : allDocs.filter(d => d.tag === activeTag);
+
+            if (filtered.length === 0) {
+                empty.classList.remove("hidden");
+                return;
+            }
+
+            empty.classList.add("hidden");
+
+            filtered.forEach(doc => {
+
+                const div = document.createElement("div");
+
+                div.className = "glass-card rounded-2xl overflow-hidden border-transparent hover:border-white/10 transition-all";
+
+                div.innerHTML = `
+        <div class="flex items-center justify-between px-6 py-3 border-b border-white/5 bg-white/[0.01]">
+
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-tighter">
+                ${doc.tag}
+            </span>
+
+            <div class="flex items-center space-x-4">
+
+                <span class="text-[10px] text-gray-600 font-mono">
+                    ${doc._id}
+                </span>
+
+                <button onclick="deleteRecord('${doc._id}')"
+                class="text-gray-500 hover:text-red-400 transition-colors">
+
+                    <i class="fas fa-trash-alt text-xs"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="p-5 overflow-x-auto">
+
+            <pre class="text-xs text-indigo-100/70 font-mono">
+<code>${JSON.stringify(doc, null, 2)}</code>
+            </pre>
+
+        </div>
+        `;
+
+                container.appendChild(div);
+
+            });
+
+        }
+
+
+
+        /* -----------------------------
+           MODAL
+        ------------------------------ */
+
+        function openCreateModal() {
+            document.getElementById("modalOverlay").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("modalOverlay").style.display = "none";
+        }
+
+
+
+        /* -----------------------------
+           CREATE RECORD
+        ------------------------------ */
+
+        async function submitNewRecord() {
+
+            const tag = document.getElementById("newTag").value.trim();
+            const jsonText = document.getElementById("newJson").value.trim();
+            const btn = document.getElementById("submitBtn");
+
+            if (!tag) {
+                alert("Tag is required.");
+                return;
+            }
+
+            if (!jsonText) {
+                alert("JSON body required.");
+                return;
+            }
+
+            let data;
+
+            try {
+                data = JSON.parse(jsonText);
+            } catch (e) {
+                alert("Invalid JSON format.");
+                return;
+            }
+
+            try {
+
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Saving...`;
+
+                const res = await fetch(`/user-api/${rootRoute}/${tag}/create`, {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token
+                    },
+
+                    body: JSON.stringify(data)
+
+                });
+
+                const result = await res.json();
+
+                if (!res.ok) {
+                    alert(result.error || "Failed to create record.");
+                    return;
+                }
+
+                closeModal();
+
+                document.getElementById("newJson").value = "";
+                document.getElementById("newTag").value = "";
+
+                loadData();
+
+            } catch (err) {
+
+                console.error(err);
+                alert("Server error.");
+
+            } finally {
+
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-plus mr-2"></i> Push to Database`;
+
+            }
+
+        }
+
+
+
+        /* -----------------------------
+           DELETE RECORD
+        ------------------------------ */
+
+        async function deleteRecord(docId) {
+
+            if (!confirm("Delete this record permanently?")) return;
+
+            try {
+
+                showLoader();
+
+                const res = await fetch(`/user-api/${rootRoute}/${docId}/delete`, {
+
+                    method: "DELETE",
+
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+
+                });
+
+                const result = await res.json();
+
+                if (!res.ok) {
+                    alert(result.error || "Failed to delete.");
+                    return;
+                }
+
+                loadData();
+
+            } catch (err) {
+
+                console.error(err);
+                alert("Server error.");
+
+            } finally {
+
+                hideLoader();
+
+            }
+
+        }
+
+
+
+        /* -----------------------------
+           INIT
+        ------------------------------ */
+
+        loadData();
+
+    </script>
+</body>
+
+</html>
