@@ -92,7 +92,7 @@ npm install
 3. Setup Environment Variables
 Create a .env file in the root directory:
 
-```Code snippet
+```Bash
 PORT=3000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_key
@@ -107,21 +107,22 @@ npm start
 ```
 The server will start on http://localhost:3000.
 
-📦 Usage Examples
+## 📦 Usage Examples
 Create Data (POST)
-POST /user-api/create/myproject/users
+**ENDPOINT:** POST '/user-api/create/myproject/users'
 
-JSON
+```JSON
 {
   "name": "John Doe",
   "email": "john@email.com"
 }
+```
 Fetch Data (GET)
-GET /user-api/myproject/users
+**ENDPOINT:** GET /user-api/myproject/users
 
 Response:
 
-JSON
+```JSON
 {
   "status": 200,
   "data": [
@@ -132,12 +133,13 @@ JSON
     }
   ]
 }
+```
 Update/Delete
 
-Update: PATCH /user-api/myproject/{docId}
-Delete: DELETE /user-api/myproject/{docId}
+Update: **ENDPOINT:** PATCH /user-api/myproject/{docId}
+Delete: **ENDPOINT** DELETE /user-api/myproject/{docId}
 
-💡 Future Improvements
+## 💡 Future Improvements
 [ ] API Key Authentication for private projects.
 
 [ ] Redis caching for faster responses.
@@ -148,7 +150,7 @@ Delete: DELETE /user-api/myproject/{docId}
 
 [ ] CI/CD pipeline integration.
 
-🤝 Contributing
+## 🤝 Contributing
 Contributions make the open-source community amazing!
 
 Fork the Project.
@@ -161,11 +163,11 @@ Push to the Branch (git push origin feature/AmazingFeature).
 
 Open a Pull Request.
 
-🧑‍💻 Author
+## 🧑‍💻 Author
 Shyam Sundar
 Student developer passionate about backend systems and developer tools.
 
 GitHub: @thequietkarma
 
-⭐ Support
+## ⭐ Support
 If you find this project useful, please consider giving it a star on GitHub to help others find it!
