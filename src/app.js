@@ -11,6 +11,7 @@ import swaggerUi from "swagger-ui-express"
 import openapiSpec from "./docs/openapi.js"
 import { fileURLToPath } from "url"
 import { configDotenv } from "dotenv"
+import path from "path"
 configDotenv()
 
 const app = express()
