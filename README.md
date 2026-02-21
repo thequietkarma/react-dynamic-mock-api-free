@@ -35,8 +35,8 @@ When building frontend applications, developers often face "the waiting game" fo
 * **No-Schema Storage:** Store any JSON structure without migrations.
 * **Tag-Based Collections:** Organize your data efficiently.
 * **Developer Dashboard:** Manage and monitor your APIs visually.
-* **Robust Security:** Includes Rate Limiting and JWT authentication.
-* **Documentation:** Built-in Swagger/Docs page and API tester.
+* **Robust Security:** Includes Rate Limiting.
+* **Documentation:** Built-in Swagger/Docs page and API tester. Visit /open-source/docs.
 * **Modular Code:** Clean Controller-Service-Repository architecture.
 
 ---
@@ -73,15 +73,15 @@ src
  ├── middlewares    # Auth, Error handling, Rate limiting
  ├── routes         # API route definitions
  ├── utils          # Helpers & Async wrappers
- └── config         # Environment variables
-
-⚡ Getting Started (Local Development)
+ └── config         # Environment variables 
+ 
+⚡Getting Started (Local Development)
 1. Clone the repository
-Bash
+Bash:
 git clone [https://github.com/thequietkarma/react-dynamic-mock-api-free](https://github.com/thequietkarma/react-dynamic-mock-api-free)
 cd react-dynamic-mock-api-free
 2. Install dependencies
-Bash
+Bash:
 npm install
 3. Setup Environment Variables
 Create a .env file in the root directory:
