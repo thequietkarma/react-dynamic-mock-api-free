@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock API for Frontend Testing – Complete Guide (2026)</title>
+    <meta name="description" content="Learn how to use mock APIs for frontend testing. Build and test your frontend without a backend using dynamic REST APIs. Free tool included.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: #030712;
+            color: #e5e7eb;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        code { font-family: 'Fira Code', monospace; }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .article h2 {
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            color: #f3f4f6;
+        }
+        .article h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+        .article p {
+            color: #9ca3af;
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        pre {
+            background: #0f172a;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px #4f46e5;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-indigo-500/30">
+
+    <nav class="sticky top-0 z-50 glass border-b border-white/5 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <a href="/" class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                    <span class="bg-indigo-600 p-1.5 rounded-lg">🚀</span> ReactMockAPI
+                </a>
+                <div class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
+                    <a href="/" class="hover:text-indigo-400 transition">Features</a>
+                    <a href="/" class="hover:text-indigo-400 transition">Docs</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <a href="/" class="hidden sm:block text-sm font-semibold text-gray-300 hover:text-white">Sign In</a>
+                <a href="/" class="btn-primary text-white px-5 py-2.5 rounded-full text-sm font-bold">
+                    Create Free Mock API
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-20 pb-10 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 bg-indigo-600/10 blur-[120px] rounded-full"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative">
+            <nav class="mb-8">
+                <a href="/" class="text-indigo-400 hover:text-indigo-300 flex items-center gap-2 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                    Back to Dashboard
+                </a>
+            </nav>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+                Mock API for Frontend Testing – <span class="gradient-text">Complete Guide</span>
+            </h1>
+            <p class="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                Frontend developers often face one big problem: the backend is not ready yet. 
+                Learn how to skip the wait and build faster with dynamic mocks.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-10 article">
+        
+        <div class="glass p-8 rounded-3xl mb-12 flex flex-col md:flex-row items-center justify-between gap-6 border-indigo-500/20">
+            <div>
+                <h4 class="text-xl font-bold mb-1">Stop waiting for backends.</h4>
+                <p class="text-gray-400 !mb-0 text-sm">Generate your first REST API endpoint in under 30 seconds.</p>
+            </div>
+            <a href="/" class="btn-primary whitespace-nowrap px-8 py-3 rounded-xl font-bold shadow-lg text-white">
+                Get Instant Mock API →
+            </a>
+        </div>
+
+        <section>
+            <h2>What is a Mock API?</h2>
+            <p>
+                A mock API is a simulated backend that behaves like a real REST API. 
+                Instead of connecting to a real database, developers send requests to a fake API that returns predefined JSON responses.
+            </p>
+            <p>
+                This allows frontend developers to build UI, test requests, and simulate real API interactions before the backend exists.
+            </p>
+
+            <pre>
+<span class="text-green-400">GET</span> <span class="text-indigo-300">/api/v1/users/profile</span>
+
+<span class="text-gray-500">// Response</span>
+{
+  "id": 1,
+  "name": "Alex",
+  "role": "Senior Developer",
+  "avatar": "https://api.dicebear.com/7.x/avataaars/svg"
+}</pre>
+        </section>
+
+        <section>
+            <h2>Why Frontend Developers Use Mock APIs</h2>
+            <p>Modern development cycles require speed. Mocking eliminates the "Backend Dependency" bottleneck.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <div class="glass p-5 rounded-2xl border-white/10">
+                    <span class="text-indigo-400 text-2xl mb-2 block">⚡</span>
+                    <h4 class="font-bold mb-1">Independent Development</h4>
+                    <p class="text-sm !mb-0">Work on features even when the backend team is behind schedule.</p>
+                </div>
+                <div class="glass p-5 rounded-2xl border-white/10">
+                    <span class="text-indigo-400 text-2xl mb-2 block">🧪</span>
+                    <h4 class="font-bold mb-1">Edge Case Testing</h4>
+                    <p class="text-sm !mb-0">Easily simulate 404, 500 errors, or slow network responses.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="my-16 text-center border-y border-white/5 py-12">
+            <h3 class="!mt-0 mb-4">Ready to build your next project?</h3>
+            <p class="mb-8">Join developers using ReactMockAPI for their prototypes.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/" class="btn-primary px-10 py-4 rounded-2xl font-bold text-lg">Create My API</a>
+                <a href="/" class="bg-white/10 hover:bg-white/20 px-10 py-4 rounded-2xl font-bold text-lg transition">View Demo</a>
+            </div>
+        </div>
+
+        <section>
+            <h2>Better Solution: Instant Mock API Generator</h2>
+            <p>
+                Instead of writing Node.js boilerplate, <strong>ReactMockAPI</strong> allows you to create endpoints visually.
+            </p>
+
+            <div class="bg-indigo-950/30 border border-indigo-500/30 rounded-2xl p-6 my-8">
+                <h4 class="font-bold text-indigo-300 mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                    How it works:
+                </h4>
+                <ul class="space-y-4">
+                    <li class="flex gap-3">
+                        <span class="bg-indigo-500/20 text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                        <span>Create an <b>API Project</b> name (e.g., "ShopifyClone")</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="bg-indigo-500/20 text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                        <span>Paste your <b>JSON data</b> into the dashboard</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="bg-indigo-500/20 text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                        <span>Use the <b>Live URL</b> in your React/Vue/Angular fetch call</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Use Cases</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 list-none !ml-0">
+                <li class="flex items-center gap-2 text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                    <span class="text-green-500">✔</span> React/Next.js UI development
+                </li>
+                <li class="flex items-center gap-2 text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                    <span class="text-green-500">✔</span> Hackathon rapid prototyping
+                </li>
+                <li class="flex items-center gap-2 text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                    <span class="text-green-500">✔</span> Student portfolio projects
+                </li>
+                <li class="flex items-center gap-2 text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                    <span class="text-green-500">✔</span> Mobile app testing (Flutter/RN)
+                </li>
+            </ul>
+        </section>
+
+        <div class="mt-20 glass p-10 rounded-[2rem] text-center border-indigo-500/30">
+            <h2 class="!mt-0 mb-4">Stop Mocking Around.</h2>
+            <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto">
+                Get a fully functional REST API with GET, POST, and DELETE capabilities for free.
+            </p>
+            <a href="/" class="btn-primary inline-block px-12 py-5 rounded-2xl font-extrabold text-xl shadow-2xl">
+                Make Mock API Now
+            </a>
+            <p class="text-xs text-gray-500 mt-6 uppercase tracking-widest">No credit card required • Setup in 30s</p>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-white/5 mt-20 py-16">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-left">
+                <div class="text-xl font-bold text-white mb-2">ReactMockAPI</div>
+                <p class="text-gray-500 text-sm">Empowering frontend developers.</p>
+            </div>
+            <div class="text-gray-500 text-sm">
+                © 2026 ReactMockAPI. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

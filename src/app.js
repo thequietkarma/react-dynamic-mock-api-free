@@ -59,6 +59,9 @@ app.get("/dashboard/:rootRoute/view",(req,res)=>{
 app.get("/docs",(req,res)=>{
     res.render("docs")
 })
+app.get("/blog/mock-api-for-frontend-testing",(req, res)=>{
+	res.render("blog/mock-api-for-frontend-testing")
+})
 //Routes
 app.use("/user", userRoutes)
 app.use("/config", apiConfigRoutes)
